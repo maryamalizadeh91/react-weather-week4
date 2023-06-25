@@ -10,6 +10,9 @@ function Weather(props) {
   let [temperature, setTemperature] = useState("");
   let [humidity, setHumidity] = useState("");
   let [wind, setWind] = useState("");
+  let [icon, setIcon] = useState(
+    "http://shecodes-assets.s3.amazonaws.com/api/weather/icons/clear-sky-day.png"
+  );
 
   let apiKey = "32b4b295foaa231fc57f93c96aat80ba";
   let url = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}`;
@@ -60,6 +63,8 @@ function Weather(props) {
       setTemperature(Math.round(response.data.temperature.current));
       setHumidity(response.data.temperature.humidity);
       setWind(response.data.wind.speed);
+      setIcon(response.data.condition.icon_url);
+      console.log(response.data.condition.icon_url);
     }
   }
 
@@ -102,8 +107,11 @@ function Weather(props) {
             <div className="row m-2">
               <div className="col-12 col-sm-4 text-left">
                 <p>
-                  <span id="current-weather-icon" role="img" aria-label="Sunny">
-                    🌤️
+                  <span
+                    id="current-weather-icon"
+                    role="img"
+                    aria-label="Weather Icon">
+                    <img src={icon} alt="Weather Icon" />
                   </span>
                   <span id="current-temp">{temperature}</span>
                   <span id="current-degree">
@@ -124,6 +132,16 @@ function Weather(props) {
           </div>
         </div>
       </div>
+      <p>
+        The code is hosted on&nbsp;
+        <a
+          className="text-success"
+          href="https://github.com/maryamalizadeh91/react-weather-week4"
+          target="_blank"
+          rel="noreferrer">
+          Github
+        </a>
+      </p>
     </div>
   );
 }
